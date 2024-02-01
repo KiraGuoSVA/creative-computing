@@ -1,0 +1,45 @@
+body{
+    background: rgb(207, 255, 208);
+    color: rgb(83, 0, 0);
+}
+
+ul{
+    background: rgb(255, 207, 207);
+    color: rgb(9, 49, 0);
+}
+
+img{
+    border-radius: 10px;
+}
+
+video{
+    border-radius: 10px;
+}
+
+.rounded{
+    border-radius: 10px;
+}
+
+.item{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#first-item{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+}
+
+.item.second-item{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.my-button{
+    background: red;
+}
+
+.background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
