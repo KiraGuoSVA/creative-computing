@@ -12,5 +12,5 @@ function onMessage(data) {
     let jd = JSON.parse(data);
     wss.clients.forEach( client => {
         client.send(JSON.stringify(jd));
-    })
+    });
 }
