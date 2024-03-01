@@ -1,4 +1,5 @@
-let bird;
+let birds = [];
+
 let mPressed;
 let mCurrent;
 let mDragging = false;
@@ -15,12 +16,12 @@ function draw() {
     circle(mPressed.x, mPressed.y, birdSize);
   }
 
-  if (bird) {
+  birds.forEach(bird => {
     bird.applyForce(createVector(0, 0.03));
     bird.bounce();
     bird.update();
     bird.display();
-  }
+  })
 }
 
 function mousePressed() {
@@ -36,9 +37,11 @@ function mouseDragged() {
 function mouseReleased() {
   mCurrent = createVector(mouseX, mouseY);
 
-  bird = new RigidBody(mPressed.x, mPressed.y, birdSize);
+  let bird = new RigidBody(mPressed.x, mPressed.y, birdSize);
   mDragging = false;
   force = p5.Vector.sub(mPressed, mCurrent);
   force.mult(0.1);
   bird.applyForce(force);
+
+  birds.push(bird);
 }
