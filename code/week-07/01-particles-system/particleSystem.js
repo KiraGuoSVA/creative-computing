@@ -4,8 +4,8 @@ class ParticleSystem {
     }
 
     addParticles(num, loc) {
-        let size = 30;
         for (let i = 0; i < num; i++) {
+            let size = random(15,30);
             let p = new RigidBody(loc.x, loc.y, size);
             let rf = p5.Vector.random2D().mult(random(2));
             p.applyForce(rf);
