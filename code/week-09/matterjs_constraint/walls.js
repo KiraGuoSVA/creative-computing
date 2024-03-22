@@ -19,6 +19,14 @@ class Walls {
         this.shapes.push(leftSideWall, rightSideWall);
     }
 
+    addBottomWall () {
+        const wall = new Rect(this.world,
+            createVector(width/2, height),
+            createVector(width, this.thickness),
+            { isStatic: true });
+        this.shapes.push(wall);
+    }
+
     display() {
         this.shapes.forEach( s => s.display() );
     }
