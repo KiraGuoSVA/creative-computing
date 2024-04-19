@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Sentiment</title>
+        <title>Teachable Machine Image Model - p5.js and ml5.js</title>
         <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.js"></script>
-        <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
         <script src="sketch.js"></script>
     </head>
-    <body></body>
+    <body>
+        <button type="button" onclick="init()">Start</button>
+        <div><canvas id="canvas"></canvas></div>
+        <div id="label-container"></div>
+    </body>
 </html>
