@@ -1,18 +1,12 @@
-var font;
-var fontFile = "../assets/font/GintoNord-Medium.otf";
-
-function preload() {
-    font = loadFont(fontFile);
-}
-
 var boxInfo = []
-var boxText = ['hiya', 'ImKira']
+var boxText = ['hi', 'ImKira', '你好']
 
 var Engine = Matter.Engine,
     Bodies = Matter.Bodies,
     World = Matter.World,
     Mouse = Matter.Mouse,
-    MouseConstraint = Matter.MouseConstraint;
+    MouseConstraint = Matter.MouseConstraint,
+    Composite = Matter.Composite;
 
 var engine = Engine.create(),
     world = engine.world;
@@ -31,7 +25,7 @@ function setup() {
 
     var ground = Bodies.rectangle(width/2, height+5, width, 100, {isStatic: true});
     var leftWall = Bodies.rectangle(-5, height/2, 10, height, {isStatic: true});
-    var rightWall = Bodies.rectangle(width+5, height/2, 10, height, {isStatic: true});
+    var rightWall = Bodies.rectangle(width-5, height/2, 10, height, {isStatic: true});
 
     boxes.push(ground);
     boxes.push(leftWall);
@@ -48,8 +42,8 @@ function setup() {
     var mouse = Mouse.create(canvas.elt);
     var mouseConstraint = MouseConstraint.create(engine, {mouse:mouse});
 
-    world.add(engine.world, [ground, leftWall, rightWall, mouseConstraint]);
-    world.add(engine.world, boxInfo);
+    Composite.add(engine.world, [ground, leftWall, rightWall, mouseConstraint]);
+    Composite.add(engine.world, boxInfo);
     Matter.Runner.run(engine);
 }
 
@@ -89,7 +83,7 @@ function draw() {
     
     fill(0)
     textSize(20)
-    text('SayHi&Enter', 205, 68)
+    text('SayHi&Enter', 200, 60)
 
     for(var i = 0; i < boxInfo.length; i++) {
         push();
