@@ -72,7 +72,7 @@ class Particle {
         let x = floor(this.pos.x / scl);
         let y = floor(this.pos.y / scl);
         let index = x + y * cols;
-        let force = flowfield(index);
+        let force = flowfield[index];
         this.applyForce(force);
     }
 
@@ -93,4 +93,34 @@ class Particle {
         if (this.pos.y > height) this.pos.y = 0;
         if (this.pos.y < 0) this.pos.y = height;
     }
+
+
+    show(){
+        let d = dist(this.pos.x, this.pos.y, mouseX, mouseY);
+        if (d < 50){
+            this.color = color(89, 151, 155, 5);
+        } else {
+            this.color = color(68, 105, 161, 5);
+        }
+        strokeWeight(2);
+
+
+        if (random(1) < 0.01){
+            stroke(255, 255, 255, 200);
+            strokeWeight(1);
+        } else {
+            stroke(this.color);
+        }
+        point(this.pos.x, this.pos.y);
+    }
+}
+
+function radialGradient(sX, sY, sR, eX, eY, eR, colorS, colorE){
+
+    let gradient = drawingContext.createRadialGradient(sX, sY, sR, eX, eY, eR);
+
+    gradient.addColorStop(0, colorS);
+    gradient.addColorStop(1, colorE);
+
+    drawingContext.fillStyle = gradient;
 }
