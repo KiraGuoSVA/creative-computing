@@ -1,0 +1,96 @@
+let cols, rows;
+let scl = 20;
+let zoff = 0;
+let particles = [];
+let flowfield;
+let i = 0;
+
+
+function setup(){
+    createCanvas(600, 800);
+    cols = floor(width / scl);
+    rows = floor(height / scl);
+    flowfield = new Array(cols * rows);
+
+    for (let i = 0; i < 2000; i++){
+        particles[i] = new Particle();
+    }
+    background(243, 234, 226);
+
+}
+
+function draw(){
+
+    let yoff = 0;
+    for (let y = 0; y < rows; y++){
+        let xoff = 0;
+        for (let x = 0; x < cols; x++){
+            let index = x + y * cols;
+            let angle = noise(xoff, yoff, zoff) * TWO_PI * 2;
+            let v = p5.Vector.fromAngle(angle);
+            v.setMag(1);
+            flowfield[index] = v;
+            xoff += 0.1;
+        }
+        yoff += 0.1;
+    }
+    zoff += 0.01;
+
+    for (let i = 0; i < particles.length; i++){
+        particles[i].follow(flowfield);
+        particles[i].update();
+        particles[i].edges();
+        particles[i].show();
+    }
+
+    push();
+    radialGradient(width/2-30, height/2-30, 0, //start point
+                   width/2+50, height/2+50, 130, //end point
+                   color(232, 123, 116), //start color
+                   color(255)); //end color 243, 234, 226
+    noStroke();
+    i = i + 0.1;
+    if(i < 80){
+        ellipse(width/2, height/2, i, i);
+    } else {
+        ellipse(width/2, height/2, 80, 80);
+    }
+    pop();
+}
+
+class Particle {
+    constructor(){
+        this.pos = createVector(random(width), random(height));
+        this.vel = createVector();
+        this.acc = createVector();
+        this.maxspeed = 2;
+
+        this.color = color(68, 105, 161, 5);
+    }
+
+    follow(flowfield){
+        let x = floor(this.pos.x / scl);
+        let y = floor(this.pos.y / scl);
+        let index = x + y * cols;
+        let force = flowfield(index);
+        this.applyForce(force);
+    }
+
+    update(){
+        this.vel.add(this.acc);
+        this.vel.limit(this.maxspeed);
+        this.pos.add(this.vel);
+        this.acc.mult(0);
+    }
+
+    applyForce(force){
+        this.acc.add(force);
+    }
+
+    edges(){
+        if (this.pos.x > width) this.pos.x = 0;
+        if (this.pos.x < 0) this.pos.x = width;
+        if (this.pos.y > height) this.pos.y = 0;
+        if (this.pos.y < 0) this.pos.y = height;
+    }
+}
