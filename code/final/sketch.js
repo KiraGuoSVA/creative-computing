@@ -21,6 +21,8 @@ function setup(){
 
 function draw(){
 
+    //background(255)
+
     let yoff = 0;
     for (let y = 0; y < rows; y++){
         let xoff = 0;
